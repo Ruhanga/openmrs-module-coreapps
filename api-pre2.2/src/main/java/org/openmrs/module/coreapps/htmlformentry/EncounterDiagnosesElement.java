@@ -122,7 +122,7 @@ public class EncounterDiagnosesElement implements HtmlGeneratorElement, FormSubm
                     output.append(errorWidget.generateHtml(context));
                     output.append(uiUtils.includeFragment("coreapps", "diagnosis/encounterDiagnoses", fragmentConfig));
                     if (!StringUtils.isEmpty(conceptSource)){
-                        output.append("\n <input type=\"hidden\" id=\"concept-source\" value=\"" + conceptSource + "\"/>\n");
+                        output.append("\n<input type=\"hidden\" id=\"concept-source\" value=\"" + conceptSource + "\"/>");
                     }
                     if (selectedDiagnosesTarget != null) {
                         output.append("\n <script type=\"text/javascript\"> \n $(function() { $('#display-encounter-diagnoses-container').appendTo('" + selectedDiagnosesTarget + "'); }); \n </script>");

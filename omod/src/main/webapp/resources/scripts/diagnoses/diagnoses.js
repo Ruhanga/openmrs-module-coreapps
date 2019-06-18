@@ -1,11 +1,12 @@
 (function(diagnoses, $, _, undefined) {
     
-    var conceptSource = $("input#concept-source").val();
-    var codingSystemToUse = conceptSource != null ? conceptSource : 'ICD-10-WHO';
+    var codingSystemToUse = 'ICD-10-WHO';
 
     var mapTypeOrder = [ "SAME-AS", "NARROWER-THAN" ]
 
     findConceptMapping = function(concept, sourceName) {
+        var conceptSource = $("input#concept-source").val();
+        sourceName = conceptSource != null ? conceptSource : sourceName;
         var matches = _.filter(concept.conceptMappings, function(item) {
             return item.conceptReferenceTerm.conceptSource.name == sourceName
         });
