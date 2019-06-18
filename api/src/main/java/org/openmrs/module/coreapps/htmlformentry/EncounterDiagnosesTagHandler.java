@@ -18,9 +18,11 @@ import java.util.Map;
  *
  * In enter/edit mode, includes the diagnosis/encounterDiagnoses fragment.
  * Currently this is hardcoded to use specific ids and names, and can only be included once on a form
+ * 
+ * It supports specifying the concept source to use for obtaining concept code displayed on the UI
  *
  * Example usage:
- * <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target" includePriorDiagnosesFromMostRecentEncounterWithDispositionOfType="ADMIT"/>)
+ * <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target" includePriorDiagnosesFromMostRecentEncounterWithDispositionOfType="ADMIT" conceptSource="CIEL"/>)
  *
  */
 public class EncounterDiagnosesTagHandler extends SubstitutionTagHandler {
