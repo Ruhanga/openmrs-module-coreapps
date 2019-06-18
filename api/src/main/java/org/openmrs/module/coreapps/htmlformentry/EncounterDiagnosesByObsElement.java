@@ -66,6 +66,8 @@ public class EncounterDiagnosesByObsElement implements HtmlGeneratorElement, For
 
     private ConceptService conceptService;
 
+    private String conceptSource;
+
     private AdtService adtService;
 
     private DispositionType dispositionTypeForPriorDiagnoses = null;
@@ -120,6 +122,9 @@ public class EncounterDiagnosesByObsElement implements HtmlGeneratorElement, For
                     StringBuilder output = new StringBuilder();
                     output.append(errorWidget.generateHtml(context));
                     output.append(uiUtils.includeFragment("coreapps", "diagnosis/encounterDiagnoses", fragmentConfig));
+                    if (!StringUtils.isEmpty(conceptSource)){
+                        output.append("\n<input type=\"hidden\" id=\"concept-source\" value=\"" + conceptSource + "\"/>");
+                    }
                     if (selectedDiagnosesTarget != null) {
                         output.append("\n <script type=\"text/javascript\"> \n $(function() { $('#display-encounter-diagnoses-container').appendTo('" + selectedDiagnosesTarget + "'); }); \n </script>");
                     }
@@ -308,6 +313,14 @@ public class EncounterDiagnosesByObsElement implements HtmlGeneratorElement, For
 
     public boolean getRequired() {
         return required;
+    }
+
+    public void setConceptSource(String conceptSource) {
+        this.conceptSource = conceptSource;
+    }
+
+    public String getConceptSource() {
+        return conceptSource;
     }
 
     public void setUiUtils(UiUtils uiUtils) {
