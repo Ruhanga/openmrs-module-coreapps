@@ -61,6 +61,8 @@ public class EncounterDiagnosesElement implements HtmlGeneratorElement, FormSubm
     private UiUtils uiUtils;
     private String selectedDiagnosesTarget;
 
+    private String conceptSource;
+
     private EmrApiProperties emrApiProperties;
 
     private ConceptService conceptService;
@@ -119,6 +121,9 @@ public class EncounterDiagnosesElement implements HtmlGeneratorElement, FormSubm
                     StringBuilder output = new StringBuilder();
                     output.append(errorWidget.generateHtml(context));
                     output.append(uiUtils.includeFragment("coreapps", "diagnosis/encounterDiagnoses", fragmentConfig));
+                    if (!StringUtils.isEmpty(conceptSource)){
+                        output.append("\n <input type=\"hidden\" id=\"concept-source\" value=\"" + conceptSource + "\"/>\n");
+                    }
                     if (selectedDiagnosesTarget != null) {
                         output.append("\n <script type=\"text/javascript\"> \n $(function() { $('#display-encounter-diagnoses-container').appendTo('" + selectedDiagnosesTarget + "'); }); \n </script>");
                     }
@@ -307,6 +312,14 @@ public class EncounterDiagnosesElement implements HtmlGeneratorElement, FormSubm
 
     public boolean getRequired() {
         return required;
+    }
+
+    public void setConceptSource(String conceptSource) {
+        this.conceptSource = conceptSource;
+    }
+
+    public String getConceptSource() {
+        return conceptSource;
     }
 
     public void setUiUtils(UiUtils uiUtils) {

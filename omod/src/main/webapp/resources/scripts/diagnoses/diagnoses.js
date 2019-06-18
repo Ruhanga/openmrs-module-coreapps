@@ -1,6 +1,7 @@
 (function(diagnoses, $, _, undefined) {
-
-    var codingSystemToUse = 'ICD-10-WHO';
+    
+    var conceptSource = $("input#concept-source").val();
+    var codingSystemToUse = conceptSource != null ? conceptSource : 'ICD-10-WHO';
 
     var mapTypeOrder = [ "SAME-AS", "NARROWER-THAN" ]
 
