@@ -3,10 +3,15 @@
     var codingSystemToUse = 'ICD-10-WHO';
 
     var mapTypeOrder = [ "SAME-AS", "NARROWER-THAN" ]
+    
+    findRequiredConceptSource = function(requiredConceptSource) {
+        var conceptSource = $("input#concept-source").val();
+        requiredConceptSource = conceptSource != null ? conceptSource : requiredConceptSource;
+        return requiredConceptSource;
+    };
 
     findConceptMapping = function(concept, sourceName) {
-        var conceptSource = $("input#concept-source").val();
-        sourceName = conceptSource != null ? conceptSource : sourceName;
+        sourceName = findRequiredConceptSource(sourceName);
         var matches = _.filter(concept.conceptMappings, function(item) {
             return item.conceptReferenceTerm.conceptSource.name == sourceName
         });
@@ -63,6 +68,7 @@
                 preferredName: item.conceptName && item.conceptName.name != item.concept.preferredName ? item.concept.preferredName : null,
                 nameIsPreferred: item.conceptName ? (item.conceptName === item.concept.preferredName) : true,
                 code: findConceptMapping(item.concept, codingSystemToUse),
+                requiredConceptSource: findRequiredConceptSource(codingSystemToUse),
                 conceptId: item.concept.id,
                 exactlyMatchesQuery: function(query) {
                     query = emr.stripAccents(query.toLowerCase());
