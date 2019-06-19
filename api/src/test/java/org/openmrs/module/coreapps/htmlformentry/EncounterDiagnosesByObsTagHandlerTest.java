@@ -89,13 +89,13 @@ public class EncounterDiagnosesByObsTagHandlerTest {
         attributes.put(CoreAppsConstants.HTMLFORMENTRY_ENCOUNTER_DIAGNOSES_TAG_INCLUDE_PRIOR_DIAGNOSES_ATTRIBUTE_NAME, "admit");
         attributes.put("selectedDiagnosesTarget", "example-target");
         attributes.put("conceptSource", "");
-        String hiddenInputElement = "\n<input type=\"hidden\" id=\"concept-source\" value=\"ICPC2\"/>\n";
+        String hiddenInputElementCodePiece = "\n<input type=\"hidden\" id=\"concept-source\"";
 
         // replay
         String generatedHtml = encounterDiagnosesByObsTagHandler.getSubstitution(formEntrySession, formSubmissionController, attributes);
         
         // verify
-        assertFalse(StringUtils.contains(generatedHtml, hiddenInputElement));
+        assertFalse(StringUtils.contains(generatedHtml, hiddenInputElementCodePiece));
 
     }
 }
