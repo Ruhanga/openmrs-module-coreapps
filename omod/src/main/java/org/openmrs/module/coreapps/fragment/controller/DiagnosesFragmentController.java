@@ -54,11 +54,19 @@ public class DiagnosesFragmentController {
                                      UiUtils ui,
                                      @SpringBean("emrApiProperties") EmrApiProperties emrApiProperties,
                                      @SpringBean("emrConceptService") EmrConceptService emrConceptService,
+                                     @SpringBean("conceptService") ConceptService conceptService,
                                      @RequestParam("term") String query,
+                                     @RequestParam(value = "diagnosesSet", defaultValue = "") String diagnosesSetUuid,
                                      @RequestParam(value = "start", defaultValue = "0") Integer start,
                                      @RequestParam(value = "size", defaultValue = "50") Integer size) throws Exception {
 
-        Collection<Concept> diagnosisSets = emrApiProperties.getDiagnosisSets();
+        Collection<Concept> diagnosisSets = new ArrayList<Concept>();;
+        if (StringUtils.isNotEmpty(diagnosesSetUuid)) {
+            diagnosisSets.add(conceptService.getConceptByUuid(diagnosesSetUuid));
+        }
+        else{
+            diagnosisSets = emrApiProperties.getDiagnosisSets();
+        }
         Locale locale = context.getLocale();
 
         List<ConceptSource> sources = emrApiProperties.getConceptSourcesForDiagnosisSearch();

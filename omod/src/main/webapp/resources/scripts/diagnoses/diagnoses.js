@@ -195,6 +195,11 @@
 
         return api;
     };
-
+    
+    diagnoses.DiagnosesSet = function() {
+        var set = { };
+        set.diagnosesSet = $("input#diagnoses-set").val() !=null ? $("input#diagnoses-set").val() : "";
+        return set;
+    }
 
 } ( window.diagnoses = window.diagnoses || {}, jQuery, _));
