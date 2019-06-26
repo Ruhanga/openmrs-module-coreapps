@@ -35,7 +35,7 @@ public class EncounterDiagnosesByObsElementTest extends BaseContextMockTest {
     }
 
     @Test
-    public void generateHtml_shouldIncludeHiddenConceptSourceField() throws Exception {
+    public void generateHtml_shouldIncludeHiddenPreferredCodingSourceField() throws Exception {
         // setup
         EmrApiProperties emrApiProperties = mock(EmrApiProperties.class);
         FormEntryContext context = mock(FormEntryContext.class);
@@ -49,9 +49,9 @@ public class EncounterDiagnosesByObsElementTest extends BaseContextMockTest {
             }
         };
         element.setEmrApiProperties(emrApiProperties);
-        element.setConceptSource("ICPC2");
+        element.setPreferredCodingSource("ICPC2");
         element.setUiUtils(uiUtils);
-        String hiddenField = "<input type=\"hidden\" id=\"concept-source\" value=\"ICPC2\"/>";
+        String hiddenField = "<input type=\"hidden\" id=\"preferred-coding-source\" value=\"ICPC2\"/>";
 
         // replay
         String html = element.generateHtml(context);

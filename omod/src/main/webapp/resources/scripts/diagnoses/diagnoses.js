@@ -4,14 +4,14 @@
 
     var mapTypeOrder = [ "SAME-AS", "NARROWER-THAN" ]
     
-    findRequiredConceptSource = function(requiredConceptSource) {
-        var conceptSource = $("input#concept-source").val();
-        requiredConceptSource = conceptSource != null ? conceptSource : requiredConceptSource;
-        return requiredConceptSource;
+    findPreferredCodingSource = function(preferredCodingSource) {
+        var codingSource = $("input#preferred-coding-source").val();
+        preferredCodingSource = codingSource != null ? codingSource : preferredCodingSource;
+        return preferredCodingSource;
     };
 
     findConceptMapping = function(concept, sourceName) {
-        sourceName = findRequiredConceptSource(sourceName);
+        sourceName = findPreferredCodingSource(sourceName);
         var matches = _.filter(concept.conceptMappings, function(item) {
             return item.conceptReferenceTerm.conceptSource.name == sourceName
         });
@@ -68,7 +68,7 @@
                 preferredName: item.conceptName && item.conceptName.name != item.concept.preferredName ? item.concept.preferredName : null,
                 nameIsPreferred: item.conceptName ? (item.conceptName === item.concept.preferredName) : true,
                 code: findConceptMapping(item.concept, codingSystemToUse),
-                requiredConceptSource: findRequiredConceptSource(codingSystemToUse),
+                preferredCodingSource: findPreferredCodingSource(codingSystemToUse),
                 conceptId: item.concept.id,
                 exactlyMatchesQuery: function(query) {
                     query = emr.stripAccents(query.toLowerCase());

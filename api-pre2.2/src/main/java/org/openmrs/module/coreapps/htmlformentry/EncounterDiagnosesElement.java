@@ -61,7 +61,7 @@ public class EncounterDiagnosesElement implements HtmlGeneratorElement, FormSubm
     private UiUtils uiUtils;
     private String selectedDiagnosesTarget;
 
-    private String conceptSource;
+    private String preferredCodingSource;
 
     private EmrApiProperties emrApiProperties;
 
@@ -121,8 +121,8 @@ public class EncounterDiagnosesElement implements HtmlGeneratorElement, FormSubm
                     StringBuilder output = new StringBuilder();
                     output.append(errorWidget.generateHtml(context));
                     output.append(uiUtils.includeFragment("coreapps", "diagnosis/encounterDiagnoses", fragmentConfig));
-                    if (!StringUtils.isEmpty(conceptSource)){
-                        output.append("\n<input type=\"hidden\" id=\"concept-source\" value=\"" + conceptSource + "\"/>");
+                    if (!StringUtils.isEmpty(preferredCodingSource)){
+                        output.append("\n<input type=\"hidden\" id=\"preferred-coding-source\" value=\"" + preferredCodingSource + "\"/>");
                     }
                     if (selectedDiagnosesTarget != null) {
                         output.append("\n <script type=\"text/javascript\"> \n $(function() { $('#display-encounter-diagnoses-container').appendTo('" + selectedDiagnosesTarget + "'); }); \n </script>");
@@ -314,12 +314,12 @@ public class EncounterDiagnosesElement implements HtmlGeneratorElement, FormSubm
         return required;
     }
 
-    public void setConceptSource(String conceptSource) {
-        this.conceptSource = conceptSource;
+    public void setPreferredCodingSource(String preferredCodingSource) {
+        this.preferredCodingSource = preferredCodingSource;
     }
 
-    public String getConceptSource() {
-        return conceptSource;
+    public String getPreferredCodingSource() {
+        return preferredCodingSource;
     }
 
     public void setUiUtils(UiUtils uiUtils) {

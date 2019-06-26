@@ -60,7 +60,7 @@ public class EncounterDiagnosesByObsTagHandlerTest {
     }
 
     @Test
-    public void getSubstitution_shouldAddHiddenFieldCarryingConceptSourceName() throws Exception {
+    public void getSubstitution_shouldAddHiddenFieldCarryingPreferredCodingSource() throws Exception {
         // setup
         when(formEntryContext.getMode()).thenReturn(FormEntryContext.Mode.ENTER);
         when(uiUtils.includeFragment(eq("coreapps"), eq("diagnosis/encounterDiagnoses"), anyMap())).thenReturn("Some Fragment");
@@ -68,8 +68,8 @@ public class EncounterDiagnosesByObsTagHandlerTest {
         attributes.put("required", "true");
         attributes.put(CoreAppsConstants.HTMLFORMENTRY_ENCOUNTER_DIAGNOSES_TAG_INCLUDE_PRIOR_DIAGNOSES_ATTRIBUTE_NAME, "admit");
         attributes.put("selectedDiagnosesTarget", "example-target");
-        attributes.put("conceptSource", "ICPC2");
-        String hiddenInputElement = "<input type=\"hidden\" id=\"concept-source\" value=\"ICPC2\"/>";
+        attributes.put("preferredCodingSource", "ICPC2");
+        String hiddenInputElement = "<input type=\"hidden\" id=\"preferred-coding-source\" value=\"ICPC2\"/>";
 
         // replay
         String generatedHtml = encounterDiagnosesByObsTagHandler.getSubstitution(formEntrySession, formSubmissionController, attributes);
@@ -80,7 +80,7 @@ public class EncounterDiagnosesByObsTagHandlerTest {
     }
 
     @Test
-    public void getSubstitution_shouldNotAddHiddenConceptSourceNameFieldGivenEmptyOrNullValue() throws Exception {
+    public void getSubstitution_shouldNotAddHiddenPreferredCodingSourceFieldGivenEmptyOrNullValue() throws Exception {
         // setup
         when(formEntryContext.getMode()).thenReturn(FormEntryContext.Mode.ENTER);
         when(uiUtils.includeFragment(eq("coreapps"), eq("diagnosis/encounterDiagnoses"), anyMap())).thenReturn("Some Fragment");
@@ -88,8 +88,8 @@ public class EncounterDiagnosesByObsTagHandlerTest {
         attributes.put("required", "true");
         attributes.put(CoreAppsConstants.HTMLFORMENTRY_ENCOUNTER_DIAGNOSES_TAG_INCLUDE_PRIOR_DIAGNOSES_ATTRIBUTE_NAME, "admit");
         attributes.put("selectedDiagnosesTarget", "example-target");
-        attributes.put("conceptSource", "");
-        String hiddenInputElementCodePiece = "\n<input type=\"hidden\" id=\"concept-source\"";
+        attributes.put("preferredCodingSource", "");
+        String hiddenInputElementCodePiece = "\n<input type=\"hidden\" id=\"preferred-coding-source\"";
 
         // replay
         String generatedHtml = encounterDiagnosesByObsTagHandler.getSubstitution(formEntrySession, formSubmissionController, attributes);

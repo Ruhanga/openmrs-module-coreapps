@@ -22,7 +22,7 @@ import java.util.Map;
  * It supports specifying the concept source to use for obtaining concept code displayed on the UI
  *
  * Example usage:
- * <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target" includePriorDiagnosesFromMostRecentEncounterWithDispositionOfType="ADMIT" conceptSource="CIEL"/>)
+ * <encounterDiagnoses required="true" selectedDiagnosesTarget="#encounter-diagnoses-target" includePriorDiagnosesFromMostRecentEncounterWithDispositionOfType="ADMIT" preferredCodingSource="CIEL"/>)
  *
  */
 public class EncounterDiagnosesTagHandler extends SubstitutionTagHandler {
@@ -77,7 +77,7 @@ public class EncounterDiagnosesTagHandler extends SubstitutionTagHandler {
         element.setEmrApiProperties(emrApiProperties);
         element.setConceptService(conceptService);
         element.setAdtService(adtService);
-        element.setConceptSource(attributes.get("conceptSource"));
+        element.setPreferredCodingSource(attributes.get("preferredCodingSource"));
 
         /**
          *  Handle the attribute to specify loading any prior diagnoses from the most recent encounter with a specific disposition
