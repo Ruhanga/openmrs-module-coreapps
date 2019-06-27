@@ -133,6 +133,7 @@ public class EncounterDiagnosesElement implements HtmlGeneratorElement, FormSubm
                 Map<String, Object> fragmentConfig = new HashMap<String, Object>();
                 fragmentConfig.put("formFieldName", "encounterDiagnoses");
                 fragmentConfig.put("existingDiagnoses", existingDiagnoses);
+                fragmentConfig.put("preferredCodingSource", preferredCodingSource);
 
                 // add the prior diagnoses if requested
                 if (FormEntryContext.Mode.ENTER == context.getMode() && dispositionTypeForPriorDiagnoses != null) {

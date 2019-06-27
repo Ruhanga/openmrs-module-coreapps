@@ -13,7 +13,7 @@
         {{ if (item.code) { }}
         {{- item.code }}
         {{ } else if (item.concept) { }}
-        {{- item.preferredCodingSource }} ${ui.message("coreapps.consult.codedButNoCode")}
+        ${ui.message("coreapps.consult.codedButNoCode", config.preferredCodingSource)}
         {{ } else { }}
         ${ui.message("coreapps.consult.nonCoded")}
         {{ } }}
