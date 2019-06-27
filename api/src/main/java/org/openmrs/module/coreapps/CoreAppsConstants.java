@@ -53,4 +53,6 @@ public class CoreAppsConstants {
 
    // Condition list
    public static final String MANAGE_CONDITIONS_PRIVILEGE = "Task: Manage Condition Lists";
+
+   public static final String DEFAULT_CODING_SOURCE = "ICD-10-WHO";
 }

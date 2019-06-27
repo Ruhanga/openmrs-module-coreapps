@@ -144,9 +144,6 @@ public class EncounterDiagnosesElement implements HtmlGeneratorElement, FormSubm
                     StringBuilder output = new StringBuilder();
                     output.append(errorWidget.generateHtml(context));
                     output.append(uiUtils.includeFragment("coreapps", "diagnosis/encounterDiagnoses", fragmentConfig));
-                    if (!StringUtils.isEmpty(preferredCodingSource)){
-                        output.append("\n <input type=\"hidden\" id=\"preferred-coding-source\" value=\"" + preferredCodingSource + "\"/>\n");
-                    }
                     if (selectedDiagnosesTarget != null) {
                         output.append("\n <script type=\"text/javascript\"> \n $(function() { $('#display-encounter-diagnoses-container').appendTo('" + selectedDiagnosesTarget + "'); }); \n </script>");
                     }
