@@ -111,6 +111,7 @@ public class EncounterDiagnosesElement implements HtmlGeneratorElement, FormSubm
                 Map<String, Object> fragmentConfig = new HashMap<String, Object>();
                 fragmentConfig.put("formFieldName", "encounterDiagnoses");
                 fragmentConfig.put("existingDiagnoses", existingDiagnoses);
+                fragmentConfig.put("preferredCodingSource", preferredCodingSource);
 
                 // add the prior diagnoses if requested
                 if (FormEntryContext.Mode.ENTER == context.getMode() && dispositionTypeForPriorDiagnoses != null) {
@@ -121,9 +122,6 @@ public class EncounterDiagnosesElement implements HtmlGeneratorElement, FormSubm
                     StringBuilder output = new StringBuilder();
                     output.append(errorWidget.generateHtml(context));
                     output.append(uiUtils.includeFragment("coreapps", "diagnosis/encounterDiagnoses", fragmentConfig));
-                    if (!StringUtils.isEmpty(preferredCodingSource)){
-                        output.append("\n<input type=\"hidden\" id=\"preferred-coding-source\" value=\"" + preferredCodingSource + "\"/>");
-                    }
                     if (selectedDiagnosesTarget != null) {
                         output.append("\n <script type=\"text/javascript\"> \n $(function() { $('#display-encounter-diagnoses-container').appendTo('" + selectedDiagnosesTarget + "'); }); \n </script>");
                     }

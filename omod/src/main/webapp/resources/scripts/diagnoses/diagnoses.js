@@ -5,7 +5,7 @@
     var mapTypeOrder = [ "SAME-AS", "NARROWER-THAN" ]
     
     findPreferredCodingSource = function(preferredCodingSource) {
-        var codingSource = $("input#preferred-coding-source").val();
+        var codingSource = $("#diagnosis-search").attr("preferredcodingsource");
         preferredCodingSource = codingSource != null ? codingSource : preferredCodingSource;
         return preferredCodingSource;
     };
