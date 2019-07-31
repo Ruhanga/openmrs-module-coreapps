@@ -14,8 +14,10 @@
 package org.openmrs.module.coreapps.page.controller.clinicianfacing;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.openmrs.Location;
 import org.openmrs.Patient;
+import org.openmrs.PatientProgram;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.VisitService;
 import org.openmrs.api.context.Context;
@@ -27,6 +29,7 @@ import org.openmrs.module.appui.UiSessionContext;
 import org.openmrs.module.coreapps.CoreAppsConstants;
 import org.openmrs.module.coreapps.CoreAppsProperties;
 import org.openmrs.module.coreapps.contextmodel.PatientContextModel;
+import org.openmrs.module.coreapps.contextmodel.ProgramContextModel;
 import org.openmrs.module.coreapps.contextmodel.VisitContextModel;
 import org.openmrs.module.emrapi.EmrApiProperties;
 import org.openmrs.module.emrapi.adt.AdtService;
@@ -40,7 +43,9 @@ import org.openmrs.ui.framework.page.Redirect;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class PatientPageController {
@@ -90,8 +95,18 @@ public class PatientPageController {
             activeVisit = adtService.getActiveVisit(patient, visitLocation);
         }
         model.addAttribute("activeVisit", activeVisit);
-
+		
         AppContextModel contextModel = sessionContext.generateAppContextModel();
+        
+        Collection<PatientProgram> patientPrograms = Context.getProgramWorkflowService().getPatientPrograms(patient, null, null, null, null, null, false);
+        if (CollectionUtils.isNotEmpty(patientPrograms)) {
+        	for (PatientProgram patientProgram: patientPrograms) {
+        		String programName = patientProgram.getProgram().getConcept().getPreferredName(Context.getLocale()).getName();
+        		programName = programName.replace(" ", "_").replace("(", "").replace(")", "");
+        		contextModel.put(programName, new ProgramContextModel(patientProgram.getProgram()));
+        	}
+        }
+        
         contextModel.put("patient", new PatientContextModel(patient));
         contextModel.put("visit", activeVisit == null ? null : new VisitContextModel(activeVisit));
         model.addAttribute("appContextModel", contextModel);
