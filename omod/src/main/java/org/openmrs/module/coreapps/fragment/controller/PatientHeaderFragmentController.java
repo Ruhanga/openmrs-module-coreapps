@@ -48,6 +48,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Ideally you pass in a PatientDomainWrapper as the "patient" config parameter. But if you pass in
@@ -71,7 +72,7 @@ public class PatientHeaderFragmentController {
             wrapper = (PatientDomainWrapper) patient;
         }
         config.addAttribute("patient", wrapper);
-        config.addAttribute("patientNames", getNames(wrapper.getPersonName()));
+        config.addAttribute("patientNames", getAllNames(wrapper.getPatient()));
 
         if (appContextModel == null) {
             AppContextModel contextModel = sessionContext.generateAppContextModel();
@@ -140,6 +141,18 @@ public class PatientHeaderFragmentController {
             throw new APIException("Unable to generate name fields for patient header", e);
         }
 
+    }
+    
+    private Map<String,String> getAllNames(Patient patient) {
+    	Map<String,String> patientNames = getNames(patient.getPersonName());
+    	Set<PersonName> nonVoidedPatientNames = patient.getNames();
+    	nonVoidedPatientNames.remove(patient.getPersonName());
+    	if (!nonVoidedPatientNames.isEmpty()) {
+    		for (PersonName name : nonVoidedPatientNames) {
+    			patientNames.putAll(getNames(name));
+    		}    		
+    	}
+    	return patientNames;
     }
 	
 	public class ExtraPatientIdentifierType {
